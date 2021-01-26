@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Tahlil(
-    val tahlilId: Int,
+    val tahlilId: String,
     val title: String,
     val arabic: String,
     val translation: String

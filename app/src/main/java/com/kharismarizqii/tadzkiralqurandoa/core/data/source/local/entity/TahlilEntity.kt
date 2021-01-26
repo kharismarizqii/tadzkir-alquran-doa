@@ -1,7 +1,6 @@
 package com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity
 
 import android.os.Parcelable
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,9 +10,8 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "tahlil")
 data class TahlilEntity(
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "tahlilId")
-    var tahlilId: Int,
+    var tahlilId: String,
 
     @ColumnInfo(name="title")
     var title: String,

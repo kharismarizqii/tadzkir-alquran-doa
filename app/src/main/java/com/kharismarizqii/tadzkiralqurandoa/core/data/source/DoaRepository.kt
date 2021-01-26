@@ -1,5 +1,7 @@
 package com.kharismarizqii.tadzkiralqurandoa.core.data.source
 
+import android.provider.ContactsContract
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.LocalDataSource
@@ -8,10 +10,11 @@ import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiR
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.AppExecutors
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.DataMapper
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
 import com.kharismarizqii.tadzkiralqurandoa.domain.repository.IDoaRepository
 
-class DoaRepository private constructor(
+class DoaRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
@@ -34,9 +37,10 @@ class DoaRepository private constructor(
     override fun getAllTahlil(): LiveData<Resource<List<Tahlil>>> =
         object : NetworkBoundResource<List<Tahlil>, List<TahlilResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Tahlil>> {
-                return Transformations.map(localDataSource.getAllTahlil()) {
+                val transformations = Transformations.map(localDataSource.getAllTahlil()) {
                     DataMapper.mapEntitiesToDomain(it)
                 }
+                return transformations
             }
 
             override fun shouldFetch(data: List<Tahlil>?): Boolean =
@@ -47,7 +51,8 @@ class DoaRepository private constructor(
 
             override fun saveCallResult(data: List<TahlilResponse>) {
                 val tahlilList = DataMapper.mapResponsesToEntities(data)
-                localDataSource.getAllTahlil()
+                Log.e("saveCall", "tahlilList : $tahlilList")
+                localDataSource.insertTahlil(tahlilList)
             }
 
         }.asLiveData()
