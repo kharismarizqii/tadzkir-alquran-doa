@@ -1,6 +1,7 @@
 package com.kharismarizqii.tadzkiralqurandoa.core.data.source.local
 
 import androidx.lifecycle.LiveData
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.room.DoaDao
 
@@ -17,4 +18,7 @@ class LocalDataSource private constructor(private val doaDao: DoaDao){
 
     fun getAllTahlil(): LiveData<List<TahlilEntity>> = doaDao.getAllTahlil()
     fun insertTahlil(tahlilList: List<TahlilEntity>) = doaDao.insertTahlil(tahlilList)
+
+    fun getAllAsmaul(): LiveData<List<AsmaulEntity>> = doaDao.getAllAsmaul()
+    fun insertAsmaul(asmaulList: List<AsmaulEntity>) = doaDao.insertAsmaul(asmaulList)
 }

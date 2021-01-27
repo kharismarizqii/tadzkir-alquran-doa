@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 
 @Dao
@@ -14,4 +15,10 @@ interface DoaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTahlil(tahlil: List<TahlilEntity>)
+
+    @Query("SELECT * FROM asmaul")
+    fun getAllAsmaul(): LiveData<List<AsmaulEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAsmaul(asmaul: List<AsmaulEntity>)
 }

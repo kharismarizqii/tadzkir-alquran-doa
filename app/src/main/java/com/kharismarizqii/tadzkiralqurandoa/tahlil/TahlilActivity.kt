@@ -21,7 +21,7 @@ class TahlilActivity : AppCompatActivity() {
         binding = ActivityTahlilBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = TahlilAdapter()
+        val adapter = TahlilAdapter(this)
         val factory = ViewModelFactory.getInstance(context = this)
         viewModel = ViewModelProvider(this,factory)[TahlilViewModel::class.java]
 

@@ -6,9 +6,11 @@ import androidx.lifecycle.Transformations
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.LocalDataSource
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.RemoteDataSource
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.AppExecutors
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.DataMapper
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
 import com.kharismarizqii.tadzkiralqurandoa.domain.repository.IDoaRepository
 
@@ -49,8 +51,29 @@ class DoaRepository(
 
             override fun saveCallResult(data: List<TahlilResponse>) {
                 val tahlilList = DataMapper.mapResponsesToEntities(data)
-                Log.e("saveCall", "tahlilList : $tahlilList")
                 localDataSource.insertTahlil(tahlilList)
+            }
+
+        }.asLiveData()
+
+    override fun getAllAsmaul(): LiveData<Resource<List<Asmaul>>> =
+        object : NetworkBoundResource<List<Asmaul>, List<AsmaulResponse>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<Asmaul>> {
+                return Transformations.map(localDataSource.getAllAsmaul()){
+                    DataMapper.mapEntitiesToDomainAsmaul(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Asmaul>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun createCall(): LiveData<ApiResponse<List<AsmaulResponse>>> =
+                remoteDataSource.getAllAsmaul()
+
+            override fun saveCallResult(data: List<AsmaulResponse>) {
+                val asmaulList = DataMapper.mapResponsesToEntitiesAsmaul(data)
+                localDataSource.insertAsmaul(asmaulList)
             }
 
         }.asLiveData()
