@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiService
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.ListAsmaulResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.ListTahlilResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,6 +63,29 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             }
 
             override fun onFailure(call: Call<ListAsmaulResponse>, t: Throwable) {
+                resultData.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+
+        })
+        return resultData
+    }
+
+    fun getAllDoaHarian(): LiveData<ApiResponse<List<DoaHarianResponse>>>{
+        val resultData = MutableLiveData<ApiResponse<List<DoaHarianResponse>>>()
+
+        val client = apiService.getListDoaHarian()
+
+        client.enqueue(object : Callback<ListDoaHarianResponse>{
+            override fun onResponse(
+                call: Call<ListDoaHarianResponse>,
+                response: Response<ListDoaHarianResponse>
+            ) {
+                val dataArray = response.body()?.list
+                resultData.value = if (dataArray!=null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<ListDoaHarianResponse>, t: Throwable) {
                 resultData.value = ApiResponse.Error(t.message.toString())
                 Log.e("RemoteDataSource", t.message.toString())
             }

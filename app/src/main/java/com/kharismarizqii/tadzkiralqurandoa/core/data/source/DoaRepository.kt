@@ -7,10 +7,12 @@ import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.LocalDataSour
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.RemoteDataSource
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.DoaHarianResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.AppExecutors
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.DataMapper
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.DoaHarian
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
 import com.kharismarizqii.tadzkiralqurandoa.domain.repository.IDoaRepository
 
@@ -74,6 +76,26 @@ class DoaRepository(
             override fun saveCallResult(data: List<AsmaulResponse>) {
                 val asmaulList = DataMapper.mapResponsesToEntitiesAsmaul(data)
                 localDataSource.insertAsmaul(asmaulList)
+            }
+
+        }.asLiveData()
+
+    override fun getAllDoa(): LiveData<Resource<List<DoaHarian>>> =
+        object : NetworkBoundResource<List<DoaHarian>, List<DoaHarianResponse>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<DoaHarian>> =
+                Transformations.map(localDataSource.getAllDoaHarian()){
+                    DataMapper.mapEntitiesToDomainDoa(it)
+                }
+
+            override fun shouldFetch(data: List<DoaHarian>?): Boolean =
+                data == null || data.isEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<DoaHarianResponse>>> =
+                remoteDataSource.getAllDoaHarian()
+
+            override fun saveCallResult(data: List<DoaHarianResponse>) {
+                val doaHarianList = DataMapper.mapResponsesToEntitiesDoa(data)
+                localDataSource.insertDoaHarian(doaHarianList)
             }
 
         }.asLiveData()

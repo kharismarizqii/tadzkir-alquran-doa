@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.kharismarizqii.tadzkiralqurandoa.asmaulhusna.AsmaulViewModel
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.DoaRepository
 import com.kharismarizqii.tadzkiralqurandoa.core.di.Injection
+import com.kharismarizqii.tadzkiralqurandoa.doaharian.DoaHarianViewModel
 import com.kharismarizqii.tadzkiralqurandoa.domain.usecase.DoaUseCase
 import com.kharismarizqii.tadzkiralqurandoa.tahlil.TahlilViewModel
 
@@ -33,6 +34,9 @@ class ViewModelFactory private constructor(private val doaUseCase: DoaUseCase) :
             }
             modelClass.isAssignableFrom(AsmaulViewModel::class.java) -> {
                 AsmaulViewModel(doaUseCase) as T
+            }
+            modelClass.isAssignableFrom(DoaHarianViewModel::class.java) -> {
+                DoaHarianViewModel(doaUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 
-@Database(entities = [TahlilEntity::class, AsmaulEntity::class], version = 1, exportSchema = false)
+@Database(entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class], version = 1, exportSchema = false)
 abstract class DoaDatabase: RoomDatabase() {
 
     abstract fun doaDao(): DoaDao
