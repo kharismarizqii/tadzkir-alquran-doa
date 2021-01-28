@@ -11,19 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TadzkirAlQuranDanDoa">
-        <activity android:name=".bacaanshalat.BacaanShalatActivity">
+        <activity android:name=".bacaanshalat.BacaanShalatActivity"/>
+        <activity android:name=".doaharian.DoaHarianActivity"/>
+        <activity android:name=".asmaulhusna.AsmaulActivity"/>
+        <activity android:name=".tahlil.TahlilActivity" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".doaharian.DoaHarianActivity">
-
-        </activity>
-        <activity android:name=".asmaulhusna.AsmaulActivity"></activity>
-        <activity android:name=".tahlil.TahlilActivity" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
