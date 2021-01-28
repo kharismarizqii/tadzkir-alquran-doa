@@ -7,11 +7,13 @@ import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.LocalDataSour
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.RemoteDataSource
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.BacaanShalatResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.DoaHarianResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.AppExecutors
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.DataMapper
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.BacaanShalat
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.DoaHarian
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
 import com.kharismarizqii.tadzkiralqurandoa.domain.repository.IDoaRepository
@@ -96,6 +98,26 @@ class DoaRepository(
             override fun saveCallResult(data: List<DoaHarianResponse>) {
                 val doaHarianList = DataMapper.mapResponsesToEntitiesDoa(data)
                 localDataSource.insertDoaHarian(doaHarianList)
+            }
+
+        }.asLiveData()
+
+    override fun getAllBacaanShalat(): LiveData<Resource<List<BacaanShalat>>> =
+        object : NetworkBoundResource<List<BacaanShalat>, List<BacaanShalatResponse>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<BacaanShalat>> =
+                Transformations.map(localDataSource.getAllBacaanShalat()){
+                    DataMapper.mapEntitiesToDomainBacaan(it)
+                }
+
+            override fun shouldFetch(data: List<BacaanShalat>?): Boolean =
+                data == null || data.isEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<BacaanShalatResponse>>> =
+                remoteDataSource.getAllBacaanShalat()
+
+            override fun saveCallResult(data: List<BacaanShalatResponse>) {
+                val bacaanList = DataMapper.mapResponsesToEntitiesBacaan(data)
+                localDataSource.insertBacaanShalat(bacaanList)
             }
 
         }.asLiveData()

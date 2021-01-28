@@ -93,4 +93,27 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         })
         return resultData
     }
+
+    fun getAllBacaanShalat(): LiveData<ApiResponse<List<BacaanShalatResponse>>>{
+        val resultData = MutableLiveData<ApiResponse<List<BacaanShalatResponse>>>()
+
+        val client = apiService.getListBacaanShalat()
+
+        client.enqueue(object : Callback<List<BacaanShalatResponse>>{
+            override fun onResponse(
+                call: Call<List<BacaanShalatResponse>>,
+                response: Response<List<BacaanShalatResponse>>
+            ) {
+                val dataArray = response.body()
+                resultData.value = if (dataArray!=null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<List<BacaanShalatResponse>>, t: Throwable) {
+                resultData.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+
+        })
+        return resultData
+    }
 }

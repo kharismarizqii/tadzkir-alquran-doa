@@ -2,17 +2,20 @@ package com.kharismarizqii.tadzkiralqurandoa.core.utils
 
 import android.util.Log
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.BacaanShalatEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.BacaanShalatResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.DoaHarianResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.BacaanShalat
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.DoaHarian
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
 
 object DataMapper {
-    fun mapResponsesToEntities(input: List<TahlilResponse>): List<TahlilEntity>{
+    fun mapResponsesToEntities(input: List<TahlilResponse>): List<TahlilEntity> {
         val tahlilList = ArrayList<TahlilEntity>()
         input.map {
             val tahlil = TahlilEntity(
@@ -36,7 +39,7 @@ object DataMapper {
             )
         }
 
-    fun mapResponsesToEntitiesAsmaul(input: List<AsmaulResponse>): List<AsmaulEntity>{
+    fun mapResponsesToEntitiesAsmaul(input: List<AsmaulResponse>): List<AsmaulEntity> {
         val asmaulList = ArrayList<AsmaulEntity>()
         input.map {
             val asmaul = AsmaulEntity(
@@ -51,7 +54,7 @@ object DataMapper {
         return asmaulList
     }
 
-    fun mapEntitiesToDomainAsmaul(input: List<AsmaulEntity>)=
+    fun mapEntitiesToDomainAsmaul(input: List<AsmaulEntity>) =
         input.map {
             Asmaul(
                 index = it.index,
@@ -62,7 +65,7 @@ object DataMapper {
             )
         }
 
-    fun mapResponsesToEntitiesDoa(input: List<DoaHarianResponse>): List<DoaHarianEntity>{
+    fun mapResponsesToEntitiesDoa(input: List<DoaHarianResponse>): List<DoaHarianEntity> {
         val asmaulList = ArrayList<DoaHarianEntity>()
         var i = 0
         input.map {
@@ -76,11 +79,11 @@ object DataMapper {
             i++
             asmaulList.add(asmaul)
         }
-        Log.e("asmaulList" ,"asmaulList: $asmaulList")
+        Log.e("asmaulList", "asmaulList: $asmaulList")
         return asmaulList
     }
 
-    fun mapEntitiesToDomainDoa(input: List<DoaHarianEntity>)=
+    fun mapEntitiesToDomainDoa(input: List<DoaHarianEntity>) =
         input.map {
             DoaHarian(
                 id = it.id,
@@ -88,6 +91,32 @@ object DataMapper {
                 latin = it.latin,
                 arabic = it.arabic,
                 translation = it.translation
+            )
+        }
+
+    fun mapResponsesToEntitiesBacaan(input: List<BacaanShalatResponse>): List<BacaanShalatEntity> {
+        val bacaanList = ArrayList<BacaanShalatEntity>()
+        input.map {
+            val bacaan = BacaanShalatEntity(
+                id = it.id.toString(),
+                name = it.name,
+                arabic = it.arabic,
+                latin = it.latin,
+                terjemahan = it.terjemahan
+            )
+            bacaanList.add(bacaan)
+        }
+        return bacaanList
+    }
+
+    fun mapEntitiesToDomainBacaan(input: List<BacaanShalatEntity>) =
+        input.map{
+            BacaanShalat(
+                id = it.id,
+                name = it.name,
+                arabic = it.arabic,
+                latin = it.latin,
+                terjemahan = it.terjemahan
             )
         }
 }

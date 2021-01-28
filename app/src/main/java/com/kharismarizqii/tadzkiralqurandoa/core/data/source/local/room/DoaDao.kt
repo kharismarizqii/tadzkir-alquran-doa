@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.BacaanShalatEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 
@@ -31,4 +32,11 @@ interface DoaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDoaHarian(doaHarian: List<DoaHarianEntity>)
+
+    //bacaan Shalat
+    @Query("SELECT * FROM bacaan_shalat")
+    fun getAllBacaanShalat(): LiveData<List<BacaanShalatEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertBacaanShalat(bacaanShalat: List<BacaanShalatEntity>)
 }

@@ -2,6 +2,7 @@ package com.kharismarizqii.tadzkiralqurandoa.core.data.source.local
 
 import androidx.lifecycle.LiveData
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.BacaanShalatEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.room.DoaDao
@@ -25,4 +26,7 @@ class LocalDataSource private constructor(private val doaDao: DoaDao){
 
     fun getAllDoaHarian(): LiveData<List<DoaHarianEntity>> = doaDao.getAllDoaHarian()
     fun insertDoaHarian(doaHarianList: List<DoaHarianEntity>) = doaDao.insertDoaHarian(doaHarianList)
+
+    fun getAllBacaanShalat(): LiveData<List<BacaanShalatEntity>> = doaDao.getAllBacaanShalat()
+    fun insertBacaanShalat(bacaanShalat: List<BacaanShalatEntity>) = doaDao.insertBacaanShalat(bacaanShalat)
 }

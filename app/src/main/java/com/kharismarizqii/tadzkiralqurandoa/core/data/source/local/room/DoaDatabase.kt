@@ -5,20 +5,25 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.BacaanShalatEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
 
-@Database(entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class], version = 1, exportSchema = false)
-abstract class DoaDatabase: RoomDatabase() {
+@Database(
+    entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class, BacaanShalatEntity::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class DoaDatabase : RoomDatabase() {
 
     abstract fun doaDao(): DoaDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: DoaDatabase? = null
 
         fun getInstance(context: Context): DoaDatabase =
-            INSTANCE ?: synchronized(this){
+            INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     DoaDatabase::class.java,
