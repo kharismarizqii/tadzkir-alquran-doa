@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tadzkir - AlQur\'an dan Do\'a</string>
+    <string name="bacaan_shalat">Bacaan Shalat</string>
+    <string name="asmaul">Asmaul Husna</string>
+    <string name="doa_harian">Doa Harian</string>
+    <string name="tahlil">Doa Tahlil</string>
 </resources>
