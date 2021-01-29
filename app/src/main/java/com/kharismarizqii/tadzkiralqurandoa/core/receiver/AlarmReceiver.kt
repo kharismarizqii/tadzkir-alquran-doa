@@ -11,6 +11,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.kharismarizqii.tadzkiralqurandoa.R
+import com.kharismarizqii.tadzkiralqurandoa.alquran.AlquranActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +34,8 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun sendNotification(context: Context) {
-        val intent = context?.packageManager.getLaunchIntentForPackage("com.kharismarizqii.tadzkiralqurandoa")
+        val intent = Intent(context, AlquranActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         val pendingIntent = PendingIntent.getActivity(context,0, intent,0)
 
         val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -42,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(context.resources.getString((R.string.app_name)))
-            .setContentText("Cari user favorit anda sekarang!")
+            .setContentText("Klik untuk lihat ayat Al-Qur'an")
             .setAutoCancel(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -70,7 +72,7 @@ class AlarmReceiver : BroadcastReceiver() {
         calendar.set(Calendar.SECOND, 0)
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Reminder telah set up", Toast.LENGTH_SHORT).show()
     }
 
     private fun isDateInvalid(time: String, timeFormat: String): Boolean {
@@ -91,7 +93,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Repeating alarm dibatalkan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Reminder dibatalkan", Toast.LENGTH_SHORT).show()
 
     }
 }

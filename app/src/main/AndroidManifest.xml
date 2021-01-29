@@ -11,19 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TadzkirAlQuranDanDoa">
+        <receiver
+            android:name=".core.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <activity android:name=".settings.SettingsActivity"></activity>
         <activity android:name=".alquran.AlquranActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".bacaanshalat.BacaanShalatActivity" />
         <activity android:name=".doaharian.DoaHarianActivity" />
         <activity android:name=".asmaulhusna.AsmaulActivity" />
         <activity android:name=".tahlil.TahlilActivity" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

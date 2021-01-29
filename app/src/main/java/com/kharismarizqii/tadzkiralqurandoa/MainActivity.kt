@@ -7,6 +7,7 @@ import com.kharismarizqii.tadzkiralqurandoa.asmaulhusna.AsmaulActivity
 import com.kharismarizqii.tadzkiralqurandoa.bacaanshalat.BacaanShalatActivity
 import com.kharismarizqii.tadzkiralqurandoa.databinding.ActivityMainBinding
 import com.kharismarizqii.tadzkiralqurandoa.doaharian.DoaHarianActivity
+import com.kharismarizqii.tadzkiralqurandoa.settings.SettingsActivity
 import com.kharismarizqii.tadzkiralqurandoa.tahlil.TahlilActivity
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +41,11 @@ class MainActivity : AppCompatActivity() {
             }
             btnDoaTahlil.setOnClickListener {
                 Intent(this@MainActivity, TahlilActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+            btnPengaturan.setOnClickListener {
+                Intent(this@MainActivity, SettingsActivity::class.java).also {
                     startActivity(it)
                 }
             }
