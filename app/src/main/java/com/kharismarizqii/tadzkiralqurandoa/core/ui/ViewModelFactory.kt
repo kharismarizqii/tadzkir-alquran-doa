@@ -3,6 +3,7 @@ package com.kharismarizqii.tadzkiralqurandoa.core.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.kharismarizqii.tadzkiralqurandoa.alquran.AlquranViewModel
 import com.kharismarizqii.tadzkiralqurandoa.asmaulhusna.AsmaulViewModel
 import com.kharismarizqii.tadzkiralqurandoa.bacaanshalat.BacaanShalatViewModel
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.DoaRepository
@@ -41,6 +42,9 @@ class ViewModelFactory private constructor(private val doaUseCase: DoaUseCase) :
             }
             modelClass.isAssignableFrom(BacaanShalatViewModel::class.java) -> {
                 BacaanShalatViewModel(doaUseCase) as T
+            }
+            modelClass.isAssignableFrom(AlquranViewModel::class.java) -> {
+                AlquranViewModel(doaUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

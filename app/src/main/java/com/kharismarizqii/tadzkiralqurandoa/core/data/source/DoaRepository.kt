@@ -4,18 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.LocalDataSource
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AlquranEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.RemoteDataSource
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.BacaanShalatResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.DoaHarianResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.*
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.AppExecutors
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.DataMapper
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.BacaanShalat
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.DoaHarian
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.*
 import com.kharismarizqii.tadzkiralqurandoa.domain.repository.IDoaRepository
 
 class DoaRepository(
@@ -121,4 +116,10 @@ class DoaRepository(
             }
 
         }.asLiveData()
+
+    override fun getAyat(): LiveData<Alquran>{
+        return Transformations.map(remoteDataSource.getAyat()){
+            DataMapper.mapResponsesToDomainAyat(it)
+        }
+    }
 }

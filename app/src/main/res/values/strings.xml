@@ -4,4 +4,6 @@
     <string name="asmaul">Asmaul Husna</string>
     <string name="doa_harian">Doa Harian</string>
     <string name="tahlil">Doa Tahlil</string>
+    <string name="settings">Pengaturan</string>
+    <string name="bookmark">Bookmark</string>
 </resources>

@@ -116,4 +116,25 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         })
         return resultData
     }
+
+    fun getAyat(): LiveData<AlquranRawResponse>{
+        val resultData = MutableLiveData<AlquranRawResponse>()
+
+        val client =  apiService.getAyat()
+
+        client.enqueue(object : Callback<AlquranRawResponse>{
+            override fun onResponse(
+                call: Call<AlquranRawResponse>,
+                response: Response<AlquranRawResponse>
+            ) {
+                val data = response.body()
+                resultData.value = data
+            }
+
+            override fun onFailure(call: Call<AlquranRawResponse>, t: Throwable) {
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+        })
+        return resultData
+    }
 }

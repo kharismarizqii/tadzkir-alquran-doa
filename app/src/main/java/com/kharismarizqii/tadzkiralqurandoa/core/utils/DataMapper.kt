@@ -1,18 +1,9 @@
 package com.kharismarizqii.tadzkiralqurandoa.core.utils
 
 import android.util.Log
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.BacaanShalatEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.BacaanShalatResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.DoaHarianResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.Asmaul
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.BacaanShalat
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.DoaHarian
-import com.kharismarizqii.tadzkiralqurandoa.domain.model.Tahlil
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.*
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.*
+import com.kharismarizqii.tadzkiralqurandoa.domain.model.*
 
 object DataMapper {
     fun mapResponsesToEntities(input: List<TahlilResponse>): List<TahlilEntity> {
@@ -119,4 +110,17 @@ object DataMapper {
                 terjemahan = it.terjemahan
             )
         }
+
+    fun mapResponsesToDomainAyat(input: AlquranRawResponse) =
+        Alquran(
+            id = "1",
+            name = input.surat.name,
+            asma = input.surat.asma,
+            translation = input.ayat.id.translation,
+            arabic = input.ayat.ar.arabic,
+            numberSurat = input.ayat.id.surat,
+            ayat = input.ayat.id.ayat
+        )
+
+
 }

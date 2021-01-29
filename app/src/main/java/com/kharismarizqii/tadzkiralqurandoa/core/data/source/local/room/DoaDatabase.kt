@@ -4,13 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AsmaulEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.BacaanShalatEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.DoaHarianEntity
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.TahlilEntity
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.*
 
 @Database(
-    entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class, BacaanShalatEntity::class],
+    entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class, BacaanShalatEntity::class, AlquranEntity::class],
     version = 1,
     exportSchema = false
 )

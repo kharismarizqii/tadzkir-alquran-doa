@@ -1,9 +1,6 @@
 package com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network
 
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.BacaanShalatResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.ListAsmaulResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.ListDoaHarianResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.ListTahlilResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -16,4 +13,6 @@ interface ApiService {
     fun getListDoaHarian(): Call<ListDoaHarianResponse>
     @GET("bacaanshalat")
     fun getListBacaanShalat(): Call<List<BacaanShalatResponse>>
+    @GET("https://api.banghasan.com/quran/format/json/acak")
+    fun getAyat(): Call<AlquranRawResponse>
 }
