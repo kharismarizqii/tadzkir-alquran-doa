@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.*
 
 @Database(
-    entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class, BacaanShalatEntity::class, AlquranEntity::class],
+    entities = [TahlilEntity::class, AsmaulEntity::class, DoaHarianEntity::class, BacaanShalatEntity::class],
     version = 1,
     exportSchema = false
 )

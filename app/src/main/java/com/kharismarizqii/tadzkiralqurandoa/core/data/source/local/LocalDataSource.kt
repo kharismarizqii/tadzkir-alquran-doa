@@ -27,6 +27,4 @@ class LocalDataSource private constructor(private val doaDao: DoaDao){
     fun getAllBacaanShalat(): LiveData<List<BacaanShalatEntity>> = doaDao.getAllBacaanShalat()
     fun insertBacaanShalat(bacaanShalat: List<BacaanShalatEntity>) = doaDao.insertBacaanShalat(bacaanShalat)
 
-    fun getAyat(): LiveData<List<AlquranEntity>> = doaDao.getAyat()
-    fun insertAyat(ayat: List<AlquranEntity>) = doaDao.insertAyat(ayat)
 }

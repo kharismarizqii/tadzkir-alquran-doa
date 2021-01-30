@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.switch1.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
                 saveReminder(true)
-                alarmReceiver.setRepeatingAlarm(this, "RepeatingAlarm","20:38", "Ayat reminder")
+                alarmReceiver.setRepeatingAlarm(this, "RepeatingAlarm","18:00", "Ayat reminder")
             }else{
                 saveReminder(false)
                 alarmReceiver.cancelAlarm(this)

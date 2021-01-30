@@ -37,10 +37,4 @@ interface DoaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBacaanShalat(bacaanShalat: List<BacaanShalatEntity>)
 
-    //alquran
-    @Query("SELECT * FROM alquran")
-    fun getAyat(): LiveData<List<AlquranEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAyat(ayat: List<AlquranEntity>)
 }

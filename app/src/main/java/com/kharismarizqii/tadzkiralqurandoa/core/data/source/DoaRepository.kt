@@ -1,13 +1,14 @@
 package com.kharismarizqii.tadzkiralqurandoa.core.data.source
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.LocalDataSource
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.local.entity.AlquranEntity
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.RemoteDataSource
 import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.network.ApiResponse
-import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.*
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.AsmaulResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.BacaanShalatResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.DoaHarianResponse
+import com.kharismarizqii.tadzkiralqurandoa.core.data.source.remote.response.TahlilResponse
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.AppExecutors
 import com.kharismarizqii.tadzkiralqurandoa.core.utils.DataMapper
 import com.kharismarizqii.tadzkiralqurandoa.domain.model.*
@@ -56,9 +57,9 @@ class DoaRepository(
         }.asLiveData()
 
     override fun getAllAsmaul(): LiveData<Resource<List<Asmaul>>> =
-        object : NetworkBoundResource<List<Asmaul>, List<AsmaulResponse>>(appExecutors){
+        object : NetworkBoundResource<List<Asmaul>, List<AsmaulResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Asmaul>> {
-                return Transformations.map(localDataSource.getAllAsmaul()){
+                return Transformations.map(localDataSource.getAllAsmaul()) {
                     DataMapper.mapEntitiesToDomainAsmaul(it)
                 }
             }
@@ -78,9 +79,9 @@ class DoaRepository(
         }.asLiveData()
 
     override fun getAllDoa(): LiveData<Resource<List<DoaHarian>>> =
-        object : NetworkBoundResource<List<DoaHarian>, List<DoaHarianResponse>>(appExecutors){
+        object : NetworkBoundResource<List<DoaHarian>, List<DoaHarianResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<DoaHarian>> =
-                Transformations.map(localDataSource.getAllDoaHarian()){
+                Transformations.map(localDataSource.getAllDoaHarian()) {
                     DataMapper.mapEntitiesToDomainDoa(it)
                 }
 
@@ -98,9 +99,10 @@ class DoaRepository(
         }.asLiveData()
 
     override fun getAllBacaanShalat(): LiveData<Resource<List<BacaanShalat>>> =
-        object : NetworkBoundResource<List<BacaanShalat>, List<BacaanShalatResponse>>(appExecutors){
+        object :
+            NetworkBoundResource<List<BacaanShalat>, List<BacaanShalatResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<BacaanShalat>> =
-                Transformations.map(localDataSource.getAllBacaanShalat()){
+                Transformations.map(localDataSource.getAllBacaanShalat()) {
                     DataMapper.mapEntitiesToDomainBacaan(it)
                 }
 
@@ -117,8 +119,8 @@ class DoaRepository(
 
         }.asLiveData()
 
-    override fun getAyat(): LiveData<Alquran>{
-        return Transformations.map(remoteDataSource.getAyat()){
+    override fun getAyat(): LiveData<Alquran> {
+        return Transformations.map(remoteDataSource.getAyat()) {
             DataMapper.mapResponsesToDomainAyat(it)
         }
     }
